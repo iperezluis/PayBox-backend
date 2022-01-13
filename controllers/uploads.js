@@ -1,8 +1,16 @@
 const path = require("path");
 const fs = require("fs");
 
+// cloudinary.config(process.env.CLOUDINARY_URL);
+
+//Aqui modifique la config? del cloudinary  porque no me funcionaba y le puse tryCatch a casi todo
+//NOTA: guarda estas avribales en la carpeta de gitignore antes de subir a gitHub
 const cloudinary = require("cloudinary").v2;
-cloudinary.config(process.env.CLOUDINARY_URL);
+cloudinary.config({
+  api_secret: "efadsVCcIjvuCGRpMNO6tfBeY2A",
+  api_key: "784527415311958",
+  cloud_name: "servidor-depruebas-backend",
+});
 
 const { response } = require("express");
 const { subirArchivo } = require("../helpers");
@@ -64,12 +72,16 @@ const actualizarImagen = async (req, res = response) => {
     }
   }
 
-  const nombre = await subirArchivo(req.files, undefined, coleccion);
-  modelo.img = nombre;
+  try {
+    const nombre = await subirArchivo(req.files, undefined, coleccion);
+    modelo.img = nombre;
 
-  await modelo.save();
+    await modelo.save();
 
-  res.json(modelo);
+    res.json(modelo);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const actualizarImagenCloudinary = async (req, res = response) => {
@@ -109,14 +121,17 @@ const actualizarImagenCloudinary = async (req, res = response) => {
     const [public_id] = nombre.split(".");
     cloudinary.uploader.destroy(public_id);
   }
+  try {
+    const { tempFilePath } = req.files.archivo;
+    const { secure_url } = await cloudinary.uploader.upload(tempFilePath);
+    modelo.img = secure_url;
 
-  const { tempFilePath } = req.files.archivo;
-  const { secure_url } = await cloudinary.uploader.upload(tempFilePath);
-  modelo.img = secure_url;
+    await modelo.save();
 
-  await modelo.save();
-
-  res.json(modelo);
+    res.json(modelo);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const mostrarImagen = async (req, res = response) => {
