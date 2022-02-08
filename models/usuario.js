@@ -16,6 +16,7 @@ const UsuarioSchema = Schema({
   },
   img: {
     type: String,
+    // default: false,
   },
   rol: {
     type: String,
