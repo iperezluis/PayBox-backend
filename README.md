@@ -1,6 +1,8 @@
 # PayBox App
 
-- MongoDB enviroment var:
+# It's necessary consider the following instructions step by step  👋
+
+- MongoDB environment variables:
   ```
   MONGODB_CNN=
   ```
