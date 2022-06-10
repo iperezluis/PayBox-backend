@@ -7,13 +7,13 @@
   MONGODB_CNN=
   ```
 
-# Reconstruir los modulos de node e iniciar PayBox Backend
+# Rebuild the node modules and run PayBox Backend
 
 ```
 yarn install
 yarn start
 ```
 
-# Configurar las variables de entorno
+# Set up the environment variables
 
 Renombrar el archivo **.env.template** a **.env**
