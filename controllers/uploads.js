@@ -3,13 +3,11 @@ const fs = require("fs");
 
 // cloudinary.config(process.env.CLOUDINARY_URL);
 
-//Aqui modifique la config? del cloudinary  porque no me funcionaba y le puse tryCatch a casi todo
-//NOTA: guarda estas avribales en la carpeta de gitignore antes de subir a gitHub
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
-  api_secret: "efadsVCcIjvuCGRpMNO6tfBeY2A",
-  api_key: "784527415311958",
-  cloud_name: "servidor-depruebas-backend",
+  api_secret: process.env.CLOUDINARY_SECRET_KEY,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  cloud_name: process.env.CLOUDINARY_NAME,
 });
 
 const { response } = require("express");

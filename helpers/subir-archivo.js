@@ -17,10 +17,11 @@ const subirArchivo = (
         `La extensión ${extension} no es permitida - ${extensionesValidas}`
       );
     }
-
+    //creamos el uid del archivo y le agregamos el punto y despues la extension que validamos
     const nombreTemp = uuidv4() + "." + extension;
     const uploadPath = path.join(__dirname, "../uploads/", carpeta, nombreTemp);
-
+    // archivo.mv()
+    //  mv is A function to move the file elsewhere on your server
     archivo.mv(uploadPath, (err) => {
       if (err) {
         reject(err);
